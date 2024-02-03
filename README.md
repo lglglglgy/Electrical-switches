@@ -10,3 +10,10 @@ Please note that there are a few things that need to be changed.
 3. in python/run.py, the port number located in the last line needs to be changed as per your requirement and also after modification, please adjust your firewall and policy group settings.
 4. in app/app/src/main/java/com/sblgy/sw/
 MainActivity.java, the url on line 22 needs to be changed to the url of the real cloud server.
+<div align="center">
+
+| Project APP                                          | ITEM                                         |
+|---------------------------------------------------------|------------------------------------------------------------|
+|![image](https://github.com/lglglglgy/Electrical-switches/assets/129643128/b1c6cb76-8cc3-4988-94a4-36862ff5bff9)|![image](https://github.com/lglglglgy/Electrical-switches/assets/129643128/770e3982-6c2b-4b94-b68f-7d92df9f6787)|
+
+</div>
