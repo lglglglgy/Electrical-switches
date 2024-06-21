@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
 
     <!--    <Button-->
     <!--        android:id="@+id/button"-->
@@ -46,7 +47,7 @@
         android:layout_marginEnd="64dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitStart"
-        android:src="@drawable/power"
+        android:src="@drawable/power_on_blue"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck"
@@ -59,7 +60,7 @@
         android:layout_marginStart="63dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitStart"
-        android:src="@drawable/power_on_blue"
+        android:src="@drawable/power"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
@@ -92,5 +93,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95"
         tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="205dp"
+        android:layout_height="184dp"
+        android:text=" "
+        android:textColor="#FFFFFF"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

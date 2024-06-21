@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="@string/ip_addr">
+
+        <EditTextPreference
+            app:key="ip_address"
+            app:title="@string/ip_address_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/update_header">
+
+        <Preference
+            app:key="check_updates"
+            app:title="@string/check_updates_title"
+            app:summary="@string/check_updates_summary" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

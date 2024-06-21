@@ -1,14 +1,22 @@
 package com.sblgy.sw;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.Gravity;
 import android.widget.Button;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +27,16 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton buttonClose;
     private Button buttonRes;
     private ImageView imageView;
-    private String url = "http://192.168.1.8:5000/";
+
+    private Button button4;
+   private String url = "http://8.130.125.247:5000/";
+
+
+    private int clickCount = 0;
+    private long startTime = 0;
+    private final int MAX_CLICKS = 5;
+    private final long MAX_DURATION = 3000; // 3 seconds
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         buttonClose = findViewById(R.id.button);
         buttonRes = findViewById(R.id.button3);
         imageView = findViewById(R.id.imageView);
+        button4 = findViewById(R.id.button4);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String ipAddress = sharedPreferences.getString("ip_address", "8.130.125.247");
+        url = "http://" + ipAddress +":5000";
+
         buttonOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,10 +68,40 @@ public class MainActivity extends AppCompatActivity {
         buttonRes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doPostRequest(url, 300);
+                String ipAddress = sharedPreferences.getString("ip_address", "8.130.125.247");
+                url = "http://" + ipAddress +":5000";
+                Log.d("MainActivity", "IP Address: " + ipAddress);
+                Toast.makeText(MainActivity.this, "当前服务器的ip为：" + ipAddress, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonClick();
+
             }
         });
     }
+    private void handleButtonClick() {
+        long currentTime = System.currentTimeMillis();
+
+        if (startTime == 0 || currentTime - startTime > MAX_DURATION) {
+            startTime = currentTime;
+            clickCount = 0;
+        }
+
+        clickCount++;
+
+        if (clickCount == MAX_CLICKS) {
+            startTime = 0;
+            clickCount = 0;
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
+        }
+    }
+
 
     private void doPostRequest(String url, int code) {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -96,10 +148,10 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             // Assuming you have a TextView with id "textView" to display the response
                             TextView textView = findViewById(R.id.textView);
-                            if (responseData.contains("200")) {
+                            if (responseData.contains("400")) {
                                 textView.setText("已打开");
                                 imageView.setImageResource(R.drawable.led0);
-                            } else if (responseData.contains("400")) {
+                            } else if (responseData.contains("200")) {
                                 textView.setText("已关闭");
                                 imageView.setImageResource(R.drawable.led1);
                             } else if (responseData.contains("300")) {
